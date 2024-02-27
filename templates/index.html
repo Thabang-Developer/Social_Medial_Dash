@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet icon" href="../images/codeAlphaLogo.jfif">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/991fa081b6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/main-style.css">
+    
+    <title>Home | Social Media Dashboard</title>
+</head>
+<body>
+    <section class="nav-bar">
+        <div class="sub-nav">
+            <div class="logo">
+                <img src="" alt="">
+            </div>
+        </div>
+        <span class="manu-icon">&#9776;</span>
+        <span class="close">&times;</span>
+        <div class="nav-bar-cont">
+            <ul class="main-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Help & Support</a></li>
+                <li><a href="#">Settings & Privacy</a></li>
+                <li><a href="#">Terms & Policies</a></li>
+            </ul>
+        </div>
+    </section>
+
+     <!-- PROFILE -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2>Profile.</h2>
+
+        <div class="profile-image">
+          <img src="../images/20231009_120932.jpg" alt="">
+        </div>
+        
+        <input type="text" value="Thabang" id="name-el">
+        <input type="text" value="Mabena" id="surname-el">
+        <input type="text" value="thabangmabena12@gmail.com" id="email-el">
+        <input type="text" value="0609468452" id="phone-el">
+    </div>
+
+    <!-- BOOTSTRAP MODAL -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-bs-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">New Feed:</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-bs-label="Close">
+                    <span aria-bs-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input class="feed-desc" type="text" placeholder="Feed description..."/><br></br>
+                    <textarea class="feed-mssg" placeholder="Type your feed here..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary submit-feed">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL END -->
+
+    <section class="intro">
+        <div class="welcome">
+            <a href="https://www.codealpha.tech/" target="_blank"><img src="../images/codeAlphaLogo.jfif" alt=""></a>
+        </div>
+    </section>
+
+    <section class="main-container">
+        <div class="row">
+            <div class="left-cont">
+                <div class="left-content-info">
+                    <div class="profile-photo">
+                        <img src="../images/20231009_120932.jpg" alt="picture" onclick="openNav()">
+                    </div>
+                    <div class="line"></div>
+                    <div class="content-manage">
+                        <p class="btn-manage btn1 active">Feeds:</p>
+                        <p class="btn-manage btn2">Friends:</p>
+                        <p class="btn-manage btn3">Subscriptions:</p>
+                        <p class="btn-manage">Followers:</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-cont">
+                <div class="right-content-info">
+                    <div class="row-boxes">
+                        <div class="box likes">
+                            <div class="num-category">
+                                <strong class="num-likes">0</strong>
+                                <p class="category">Likes.</p>
+                            </div>
+                        </div>
+                        <div class="box subscribe">
+                            <div class="num-category">
+                                <strong>23</strong>
+                                <p class="category">Subscribe.</p>
+                            </div>
+                        </div>
+                        <div class="box feeds">
+                            <div class="num-category">
+                                <strong class="num-feeds">0</strong>
+                                <p class="category">Feeds.</p>
+                            </div>
+                        </div>
+                        <div class="box people">
+                            <div class="num-category">
+                                <strong>268</strong>
+                                <p class="category">Followers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="line"></div>
+
+                    <!-- Feeds Content -->
+                    <div class="dash-right-cont active">
+                        <h1>News Feeds:</h1>
+
+                        <div class="feed-cont">
+                       </div>
+                        <div class="btn">
+                            <button type="button" class="btn btn-primary new-feed"data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="fa-solid fa-pen"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Friends Content -->
+                    <div class="dash-right-cont">
+                        <h1>Friends:</h1>
+                        <div class="friends-cont">
+                            <p>You do not have friends yet, you can click on 'Add' button to add new friends.</p>
+                        </div>
+                        <div class="btn">
+                            <button class="new-feed">Add</i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Friends Content -->
+                    <div class="dash-right-cont">
+                        <h1>Subscriptions:</h1>
+                        <div class="friends-cont">
+                            <p>You do not have any subscriptions yet.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

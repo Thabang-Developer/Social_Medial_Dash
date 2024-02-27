@@ -1,57 +1,127 @@
-let tabLinks = document.querySelectorAll('.tab-links');
-let tabContent = document.querySelectorAll('.tab-contents');
 
-let menu = document.querySelector('#menu');
-const OpenTab = (tn) => {
-    tabLinks.forEach(tb => {
-        tb.classList.remove("active-link");
-    });
-    tabContent.forEach(tc => {
-        tc.classList.remove("active-tab");
-    });
-    event.currentTarget.classList.add("active-link");
-    document.getElementById(tn).classList.add("active-tab");
-}
-const Open = () => {
-    menu.style.right = "0";
-}
-    
-const Close = () => {
-    menu.style.right = "-200px";
-}
-    
-const Send_Email = (n, m, e) => {
-    Email.send({
-        Host : "smtp.elasticemail.com",
-        Username : "thabangmabena12@gmail.com",
-        Password : "E76036768594F0F16FCCA089AFD6218B480E",
-        To : "thabangmabena12@gmail.com",
-        From : e,
-        Subject : "<h1>Portfolio Contact:.</h1>",
-        Body : "<h4>Name:</h4> " + n
-            + "<br> <h4>Email:</h4> " + e
-            + `<br> <h4>Message:</h4> ${m}.<br><br> <h3>Thank you</h3>.`
+const dashRightContent = document.querySelectorAll('.dash-right-cont');
+const leftBtn = document.querySelectorAll('.btn-manage');
+
+const butt1 = document.querySelector('.btn1');
+const butt2 = document.querySelector('.btn2');
+const butt3 = document.querySelector('.btn3');
+
+
+const switchContentSection = (divClicked, btnClicked) => {
+
+    leftBtn.forEach(el => {
+        el.classList.remove('active');
     })
-    .then(
-        swal("Success", `Query successfully sent. Thank You ${n}`, "success")
-    )
-    .catch((e)=> {
-        swal("Error", "Something went wrong", "error");
+    leftBtn[btnClicked].classList.add('active');
+
+    dashRightContent.forEach(el => {
+        el.classList.remove('active');
     })
+    dashRightContent[divClicked].classList.add('active');
+
 }
 
-document.querySelector('#form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.querySelector('#name').value;
-    const email = document.querySelector('#email').value;
-    const message = document.querySelector('#message').value
-    if(name || email || message){
-        Send_Email(name, message, email)
-        document.querySelector('#name').value = "";
-        document.querySelector('#email').value = "";
-        document.querySelector('#message').value = ""
+butt1.addEventListener('click', () => {
+    switchContentSection(0,0);
+})
+butt2.addEventListener('click', () => {
+    switchContentSection(1,1);
+})
+butt3.addEventListener('click', () => {
+    switchContentSection(2,2);
+})
+
+// PROFILE
+const openNav = () => {
+    document.getElementById("mySidenav").style.width = "350px";
+}
+  
+const closeNav = () => {
+    document.getElementById("mySidenav").style.width = "0";
+}
+  // END
+
+// DOM Operation:
+
+document.addEventListener('DOMContentLoaded', () => {
+    const feeds = JSON.parse(localStorage.getItem('Feed Data'));
+    const arrFeeds = []
+    if (!feeds) {
+        document.querySelector('.feed-cont').innerHTML = `
+            <div class="fd-cont">
+                <p>No available feeds for you, you can create new feed from the button on your short right.</p>
+            </div>
+        `
+        return;
     }
-    else{
-        swal("Error", "Please fill in all the input fields.", "error")
+    arrFeeds.push(feeds);
+    document.querySelector('.num-feeds').textContent = feeds.length;
+    document.querySelector('.feed-cont').innerHTML = `
+        <div class="fd-cont">
+            <small>(<i>1</i>). </small><strong>${arrFeeds[0][0].desc}</strong>
+            <p>${arrFeeds[0][0].fd}. <i class="fa-regular fa-thumbs-up" onClick= "likeFunc()"></i> <i class="fa-regular fa-thumbs-down" onClick= "disLikeFunc()"></i></p>      
+        </div>
+    `
+});
+
+document.querySelector('.submit-feed').addEventListener('click', () => {
+    const feedDesc = document.querySelector('.feed-desc');
+    const feedMg = document.querySelector('.feed-mssg');
+    
+    const oldFeed = JSON.parse(localStorage.getItem('Feed Data'));
+    const newButOldFeeds = [];
+    let newFeed = [];
+    
+    if (!feedMg) {
+        swal('Error', 'Please ensure that feed message is filled before submitting.', 'error');
     }
+    
+    const feed = {
+        desc: feedDesc.value,
+        fd: feedMg.value
+    }
+    if (!oldFeed) {
+        newFeed.push(feed);
+    }else {
+        console.log(oldFeed)
+        let desc = oldFeed[0].desc;
+        let fd = oldFeed[0].fd;
+        newButOldFeeds.push({ desc, fd });
+        newFeed.push(feed, newButOldFeeds);
+    }
+
+    localStorage.setItem("Feed Data", JSON.stringify(newFeed));
+    
+    feedDesc.value = "";
+    feedMg.value = "";
+
+    swal('Success', 'New feed successfully posted.', 'success');
+    setTimeout(() => {
+        location.reload();
+    }, 2000);
+})
+
+const likeFunc = () => {
+    let num = 0;
+
+    document.querySelector('.fa-thumbs-up').style.color = 'rgb(0, 162, 255)';
+    document.querySelector('.num-likes').textContent = num + 1;  
+    document.querySelector('.fa-thumbs-down').style.color = 'rgba(3, 3, 3, 0.637)';
+}
+const disLikeFunc = () => {
+    document.querySelector('.fa-thumbs-up').style.color = 'rgba(3, 3, 3, 0.637)';
+    document.querySelector('.fa-thumbs-down').style.color = 'rgb(0, 162, 255)';
+    document.querySelector('.num-likes').textContent -= 1; 
+}
+
+document.querySelector('.manu-icon').addEventListener('click', (e) => {
+    e.target.style.display = 'none';
+    document.querySelector('.main-menu').style.display = 'block';
+    document.querySelector('.close').style.display = 'block';
+})
+
+document.querySelector('.close').addEventListener('click', (e) => {
+    document.querySelector('.main-menu').style.display = 'none';
+    e.target.style.display = 'none';
+    document.querySelector('.manu-icon').style.display = 'block';
 })
